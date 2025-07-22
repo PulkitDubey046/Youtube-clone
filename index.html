@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bholenath Computer Academy - YouTube Clone (Pure CSS)</title>
+    <!-- Google Fonts - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* General Body Styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f0f0f; /* Dark background similar to YouTube */
+            color: #f1f1f1; /* Light text color */
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #202020;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        /* Header Section */
+        .header {
+            background-color: #202020;
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+        }
+
+        .header-left, .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            text-decoration: none;
+        }
+
+        .header-logo-icon {
+            height: 1.75rem;
+            width: 1.75rem;
+            color: #ef4444; /* Red color */
+        }
+
+        .header-logo-text {
+            color: white;
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+
+        .header-search {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            padding: 0 1rem;
+        }
+
+        .search-bar-container {
+            display: flex;
+            width: 100%;
+            max-width: 40rem;
+        }
+
+        .search-input {
+            flex-grow: 1;
+            padding: 0.5rem 1rem;
+            border-top-left-radius: 9999px; /* Full rounded */
+            border-bottom-left-radius: 9999px; /* Full rounded */
+            background-color: #121212;
+            border: 1px solid #303030;
+            color: white;
+            outline: none;
+        }
+
+        .search-input:focus {
+            border-color: #3b82f6; /* Blue focus ring */
+        }
+
+        .search-button {
+            background-color: #303030;
+            padding: 0.5rem 1rem;
+            border-top-right-radius: 9999px; /* Full rounded */
+            border-bottom-right-radius: 9999px; /* Full rounded */
+            border: 1px solid #303030;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .search-button:hover {
+            background-color: #404040;
+        }
+
+        .search-icon {
+            height: 1.5rem;
+            width: 1.5rem;
+            color: white;
+        }
+
+        .header-button {
+            color: white;
+            font-size: 1.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            outline: none;
+        }
+
+        .sign-in-button {
+            border: 1px solid #3b82f6; /* Blue border */
+            color: #3b82f6; /* Blue text */
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px; /* Full rounded */
+            font-size: 0.875rem;
+            font-weight: 500;
+            background: none;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+        }
+
+        .sign-in-button:hover {
+            background-color: #3b82f6;
+            color: white;
+        }
+
+        /* Main Content Area */
+        .main-content {
+            flex-grow: 1;
+            max-width: 1200px; /* Equivalent to container mx-auto */
+            margin: 0 auto;
+            padding: 1.5rem 1rem;
+        }
+
+        /* Channel Header Section */
+        .channel-header-section {
+            margin-bottom: 2rem;
+        }
+
+        .channel-banner {
+            width: 100%;
+            height: 12rem; /* h-48 */
+            background-color: #1a202c; /* Darker gray for banner */
+            border-radius: 0.5rem; /* rounded-lg */
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #e2e8f0; /* Light text for banner placeholder */
+            font-size: 1.125rem; /* text-lg */
+        }
+
+        .channel-banner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .channel-info-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 1rem;
+            gap: 1rem;
+        }
+
+        .channel-details {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-align: center; /* Center text on small screens */
+            flex-direction: column;
+        }
+
+        .channel-profile-pic {
+            width: 6rem; /* w-24 */
+            height: 6rem; /* h-24 */
+            border-radius: 9999px; /* rounded-full */
+            object-fit: cover;
+            border: 2px solid #4b5563; /* border-gray-600 */
+        }
+
+        .channel-name {
+            font-size: 1.875rem; /* text-3xl */
+            font-weight: bold;
+            color: white;
+        }
+
+        .channel-subscribers, .channel-description {
+            color: #9ca3af; /* gray-400 */
+            font-size: 0.875rem; /* text-sm */
+            margin-top: 0.25rem;
+        }
+
+        .channel-description a {
+            color: #60a5fa; /* blue-400 */
+            text-decoration: none;
+        }
+
+        .channel-description a:hover {
+            text-decoration: underline;
+        }
+
+        .subscribe-button {
+            background-color: #dc2626; /* red-600 */
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 9999px; /* rounded-full */
+            font-weight: 600; /* font-semibold */
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .subscribe-button:hover {
+            background-color: #b91c1c; /* red-700 */
+        }
+
+        /* Channel Navigation Tabs */
+        .channel-nav {
+            margin-top: 2rem;
+            border-bottom: 1px solid #4b5563; /* border-gray-700 */
+        }
+
+        .channel-nav ul {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            overflow-x: auto; /* For horizontal scrolling on small screens */
+            white-space: nowrap;
+        }
+
+        .channel-nav li {
+            margin-right: 1.5rem;
+        }
+
+        .channel-nav a, .channel-nav button {
+            display: block;
+            padding: 0.75rem 0;
+            color: #9ca3af; /* gray-400 */
+            font-weight: 500; /* font-medium */
+            text-decoration: none;
+            border-bottom: 2px solid transparent;
+            transition: border-color 0.2s ease-in-out, color 0.2s ease-in-out;
+            background: none;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            cursor: pointer;
+            outline: none;
+        }
+
+        .channel-nav a.active,
+        .channel-nav a:hover:not(.active) {
+            color: white;
+            border-color: white;
+        }
+
+        .channel-nav button:hover {
+            color: white;
+        }
+
+        .channel-nav .search-tab-icon {
+            height: 1.25rem;
+            width: 1.25rem;
+            color: #9ca3af;
+        }
+
+        /* Videos Section */
+        .videos-section {
+            margin-top: 2rem;
+        }
+
+        .videos-section h2 {
+            font-size: 1.25rem; /* text-xl */
+            font-weight: 600; /* font-semibold */
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Responsive grid */
+            gap: 1.5rem;
+        }
+
+        .video-card {
+            background-color: #202020;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease-in-out;
+        }
+
+        .video-card:hover {
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .video-thumbnail {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            border-top-left-radius: 0.5rem;
+            border-top-right-radius: 0.5rem;
+        }
+
+        .video-info {
+            padding: 1rem;
+        }
+
+        .video-title {
+            font-size: 1.125rem; /* text-lg */
+            font-weight: 500; /* font-medium */
+            color: white;
+            margin-bottom: 0.25rem;
+            line-height: 1.25; /* leading-tight */
+        }
+
+        .video-meta {
+            color: #9ca3af; /* gray-400 */
+            font-size: 0.875rem; /* text-sm */
+        }
+
+        /* Responsive Adjustments */
+        @media (min-width: 768px) { /* md breakpoint */
+            .channel-info-container {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 2rem;
+            }
+            .channel-details {
+                flex-direction: row;
+                text-align: left;
+                align-items: center;
+            }
+            .channel-profile-pic {
+                width: 8rem; /* md:w-32 */
+                height: 8rem; /* md:h-32 */
+            }
+        }
+
+        @media (min-width: 1024px) { /* lg breakpoint */
+            .video-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (min-width: 1280px) { /* xl breakpoint */
+            .video-grid {
+                grid-template-columns: repeat(5, 1fr);
+            }
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+
+    <!-- Top Navigation Bar -->
+    <header class="header">
+        <!-- Left Section: Menu and YouTube Logo -->
+        <div class="header-left">
+            <!-- Hamburger Menu Icon (Placeholder) -->
+            <button class="header-button">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+            <!-- YouTube Logo (Text-based for simplicity) -->
+            <a href="#" class="header-logo">
+                <svg xmlns="http://www.w3.org/2000/svg" class="header-logo-icon" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
+                </svg>
+                <span class="header-logo-text">YouTube</span>
+            </a>
+        </div>
+
+        <!-- Middle Section: Search Bar -->
+        <div class="header-search">
+            <!-- Form for YouTube Search -->
+            <form action="https://www.youtube.com/results" method="GET" class="search-bar-container">
+                <input type="text" placeholder="Search" name="search_query" class="search-input">
+                <button type="submit" class="search-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="search-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                </button>
+            </form>
+        </div>
+
+        <!-- Right Section: Icons and Sign In -->
+        <div class="header-right">
+            <!-- Create Icon (Placeholder) -->
+            <button class="header-button">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                </svg>
+            </button>
+            <!-- Notifications Icon (Placeholder) -->
+            <button class="header-button">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                </svg>
+            </button>
+            <!-- Sign In Button -->
+            <button class="sign-in-button">
+                Sign In
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+        <!-- Channel Header Section -->
+        <section class="channel-header-section">
+            <!-- Channel Banner (Placeholder) -->
+            <div class="channel-banner">
+                <img src="https://yt3.googleusercontent.com/8bI-IHXkvP22SIIg_QQOrLmElRTakLr3FeuRfxME59qRwE8FsfXpqGqhj_kWS6cvrv6uylPDI40=w1707-fcrop64=1,00005a57ffffa5a8-k-c0xffffffff-no-nd-rj" alt="Channel Banner">
+            </div>
+
+            <!-- Channel Info and Subscribe Button -->
+            <div class="channel-info-container">
+                <div class="channel-details">
+                    <!-- Channel Profile Picture -->
+                    <img src="https://yt3.googleusercontent.com/s5lOphoaaxD0XgAj00lL8iYlJ6TE56ADpzODj7Z578taUAiGpSgAU6KFfPbZEGp7GEeNRuNdWuU=s160-c-k-c0x00ffffff-no-rj" alt="Channel Profile" class="channel-profile-pic">
+                    <div>
+                        <h1 class="channel-name">Bholenath Computer Academy</h1>
+                        <p class="channel-subscribers">@BholenathComputerAcademy • 123K subscribers</p>
+                        <p class="channel-description">Providing quality computer education. <a href="#">More about this channel</a></p>
+                    </div>
+                </div>
+                <!-- Subscribe Button -->
+                <button class="subscribe-button">
+                    Subscribe
+                </button>
+            </div>
+
+            <!-- Channel Navigation Tabs -->
+            <nav class="channel-nav">
+                <ul>
+                    <li>
+                        <a href="#" class="nav-link">HOME</a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link active">VIDEOS</a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link">PLAYLISTS</a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link">COMMUNITY</a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link">CHANNELS</a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link">ABOUT</a>
+                    </li>
+                    <li>
+                        <button class="nav-link">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="search-tab-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+        </section>
+
+        <!-- Videos Section (Content for the "VIDEOS" tab) -->
+        <section class="videos-section">
+            <h2>Uploads</h2>
+            <div class="video-grid">
+                <!-- Video Card 1 -->
+                <div class="video-card">
+                    <img src="https://i.ytimg.com/vi/fxRILF2tZ0k/hqdefault.jpg?sqp=-oaymwEnCNACELwBSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLD26xlA3ixo0n0oD73LSTI5-G0GFw" alt="Video Thumbnail" class="video-thumbnail">
+                    <div class="video-info">
+                        <h3 class="video-title">#8 Computer Fundamentals | Types of Computers | Size, Application & Purpose</h3>
+                        <p class="video-meta">1.2M views • 2 weeks ago</p>
+                    </div>
+                </div>
+                <!-- Video Card 2 -->
+                <div class="video-card">
+                    <img src="https://i.ytimg.com/vi/kSh4e1E3huE/hqdefault.jpg?sqp=-oaymwEnCNACELwBSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLC02e26j5LHlLBbyylHkVKYjVyARg" alt="Video Thumbnail" class="video-thumbnail">
+                    <div class="video-info">
+                        <h3 class="video-title">#7 Computer Fundamentals | Programming Languages & Translators | Machine to High-</h3>
+                        <p class="video-meta">500K views • 1 month ago</p>
+                    </div>
+                </div>
+                <!-- Video Card 3 -->
+                <div class="video-card">
+                    <img src="https://i.ytimg.com/vi/ZbOtrvC3UlE/hqdefault.jpg?sqp=-oaymwEnCNACELwBSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLA8pNzo1AdF902LC7cVGWbABq2dJg" alt="Video Thumbnail" class="video-thumbnail">
+                    <div class="video-info">
+                        <h3 class="video-title">#6 Computer Fundamentals | Functions of Computer (Part-3)| Storage & Output Devices</h3>
+                        <p class="video-meta">2.1M views • 3 months ago</p>
+                    </div>
+                </div>
+                <!-- Video Card 4 -->
+                <div class="video-card">
+                    <img src="https://i.ytimg.com/vi/Z4REgmjdQpA/hqdefault.jpg?sqp=-oaymwEnCNACELwBSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLCsW15HbU8igHvGhutb2EfUkWRSTw" alt="Video Thumbnail" class="video-thumbnail">
+                    <div class="video-info">
+                        <h3 class="video-title">#5 Computer Fundamentals | Functions of Computer (Part-2)| Input Devices Explained |</h3>
+                        <p class="video-meta">800K views • 6 months ago</p>
+                    </div>
+                </div>
+                <!-- Video Card 5 -->
+                <div class="video-card">
+                    <img src="https://i.ytimg.com/vi/yt_TUGPHksk/hqdefault.jpg?sqp=-oaymwEnCNACELwBSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLAiSWZk8Bsl0cGRS5inWlWu80Rc7w" alt="Video Thumbnail" class="video-thumbnail">
+                    <div class="video-info">
+                        <h3 class="video-title">#4 Computer Fundamentals | Functions of Computer | Keyboard & Hindi Typing | ADC</h3>
+                        <p class="video-meta">300K views • 1 year ago</p>
+                    </div>
+                </div>
+               
+            </div>
+        </section>
+    </main>
+
+</body>
+</html>
