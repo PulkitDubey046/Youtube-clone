@@ -222,22 +222,21 @@
         .channel-description a:hover {
             text-decoration: underline;
         }
-
         .subscribe-button {
             background-color: #dc2626; /* red-600 */
             color: white;
             padding: 0.5rem 1.5rem;
             border-radius: 9999px; /* rounded-full */
             font-weight: 600; /* font-semibold */
-            border: none;
-            cursor: pointer;
+            text-decoration: none; /* remove underline */
+            display: inline-block; /* so padding works */
             transition: background-color 0.2s ease-in-out;
         }
-
+        
         .subscribe-button:hover {
             background-color: #b91c1c; /* red-700 */
         }
-
+        
         /* Channel Navigation Tabs */
         .channel-nav {
             margin-top: 2rem;
@@ -452,9 +451,9 @@
                     </div>
                 </div>
                 <!-- Subscribe Button -->
-                <button class="subscribe-button">
-                    <a href="https://www.youtube.com/@BholenathComputerAcademy">Subscribe</a>
-                </button>
+                <a href="https://www.youtube.com/@BholenathComputerAcademy" class="subscribe-button">
+                    Subscribe
+                </a>
             </div>
 
             <!-- Channel Navigation Tabs -->
@@ -540,4 +539,5 @@
 
 </body>
 </html>
+
 
